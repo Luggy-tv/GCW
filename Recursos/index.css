@@ -36,27 +36,22 @@ a{
 a:link {
     text-decoration: none;
 }
-
 a:visited {
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: none;
 }
-
 a:active {
     text-decoration: none;
 }
 a:hover{
-    color: white;
+    color: var(--rojo);
 }
 
 .selected{
     transition: border-bottom 0.3s ease-out 100ms
 }
-
-
 .selected:hover{
-    border-bottom: solid white ;
+    border-bottom: solid var(--azul);
 }

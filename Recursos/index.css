@@ -24,5 +24,39 @@ body{
     color: #f1f1f1;
     width: 100%;
     padding: 20px;
-  }
-  
+    padding-top: 30px;
+    border-radius: 10px;
+    
+}
+
+a{
+    color: white;
+
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+a:hover{
+    color: white;
+}
+
+.selected{
+    transition: border-bottom 0.3s ease-out 100ms
+}
+
+
+.selected:hover{
+    border-bottom: solid white ;
+}

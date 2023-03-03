@@ -45,13 +45,17 @@ a:hover {
 a:active {
     text-decoration: none;
 }
+
 a:hover{
     color: var(--rojo);
 }
 
 .selected{
-    transition: border-bottom 0.3s ease-out 100ms
+    border-bottom: 4px solid transparent;
+    transition: border-bottom  0.3s ease-out 100ms
+    
 }
+
 .selected:hover{
-    border-bottom: solid var(--azul);
+    border-bottom: solid 4px var(--azul);
 }

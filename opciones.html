@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Inicio | Puckeydome</title>
+    <title>Jugar | Puckeydome</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
@@ -15,33 +15,40 @@
 
 </head>
 <body>
-
     <video autoplay muted loop class="videoFondo float-none">
-        <source  src="Recursos/2023-02-26 17-53-24.mp4" type="video/mp4">
+        <source src="Recursos/2023-02-26 17-53-24.mp4" type="video/mp4">
     </video> 
+    
+    <div class="content p-0 rounded-0 pb-4">
 
-    <div class="content p-0 rounded-0">
-        
-        <div class="row p-0">
+        <div class="row p-0 mb-5">
+
             <div class="col-12 text-center">
                 <img class="mb-5 mt-5 mx-auto " src="Recursos/PuckeyDome Logo.png" height="200" alt="">
-
             </div>
+
         </div>
-       
-            <div class="row mb-5 text-center">
 
-                <a class="p-0" href="jugar.html">
-                    <h1 class="selected mb-3">Jugar</h1>
-                </a>
-                <a class="p-0" href="opciones.html">
-                    <h1 class="selected mb-3">Opciones</h1>
-                </a>
-                <a class="p-0" href="leaderboards.html">
-                    <h2 class="selected mb-3">Leaderboards</h2>
-                </a>
-            
+        <div class="row text-center mb-5">
+
+            <div class="col-12">
+                <p>SONIDO</P>
+                <span class="switch">
+                    
+                    <input type="checkbox" id="switcher">
+                    <label for="switcher"></label>
+                </span>
             </div>
+            
+            <div class="col-3"></div>
+
+            <div class="col-12">
+            <a href="index.html">
+                <h2 class="mx-auto mb-3">Regresar</h2>
+            </a>
+            </div>
+
+        </div>
 
     </div>
 </body>

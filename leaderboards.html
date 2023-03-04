@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jugar | Puckeydome</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="Recursos/index.css">
+
+</head>
+<body>
+    <video autoplay muted loop class="videoFondo float-none">
+        <source src="Recursos/2023-02-26 17-53-24.mp4" type="video/mp4">
+    </video> 
+    
+    <div class="content p-0 rounded-0 pb-4">
+
+        <div class="row p-0 mb-5">
+
+            <div class="col-12 text-center">
+                <img class="mb-5 mt-5 mx-auto " src="Recursos/PuckeyDome Logo.png" height="200" alt="">
+            </div>
+
+        </div>
+
+        <div class="col-12">
+            <div class="row text-center mb-5">
+
+                <div class="col-12">
+                    <div class="description">
+                        <h3>Lista de victorias</h3>
+                    </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        Jugador
+                                    </td>
+                                    <td>
+                                        Victorias
+                                    </td>
+                                    <td>
+                                        Derrotas
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="winner">1</td>
+                                    <td><img src="Recursos/juan.jpg"><p> Jose Brag</p></td>
+                                    <td>2</td>
+                                    <td>0</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td id="runner-up">2</td>
+                                    <td><img src="Recursos/juan.jpg"><p> Lily Simons</p></td>
+                                    <td>2</td>
+                                    <td>1</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td id="second-runner-up">3</td>
+                                    <td><img src="Recursos/juan.jpg"><p> Tom Higgle</p></td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>4</td>
+                                    <td><img src="Recursos/juan.jpg"><p> Alex Roger</p></td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>5</td>
+                                    <td><img src="Recursos/juan.jpg"><p> Mavie Ruth</p></td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+        </div>
+        
+
+            <div class="col-12">
+            <a href="index.html">
+                <h2 class="mx-auto mb-3">Regresar</h2>
+            </a>
+            </div>
+
+        </div>
+
+    </div>
+
+        <script>
+            function search(){
+                var text = document.getElementById('search').value;
+                const tr = document.getElementsByTagName('tr');
+                for (let i=1;i<tr.length;i++){
+                    if(!tr[i].children[1].children[1].innerHTML.toLowerCase().includes(
+                        text.toLowerCase()
+                    )){
+                        tr[i].style.display = 'none';
+                    }
+                    else{
+                        tr[i].style.display = '';
+                    }
+                }
+            }
+        </script>
+
+</body>
+</html>

@@ -12,6 +12,17 @@ const camera = new THREE.PerspectiveCamera(
   window.innerWidth / window.innerHeight
 );
 camera.position.set(0, 95, 110);
+camera.lookAt(0,0,0);
+
+//actuizado conforme se mueve la ventana
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+}
+
+window.addEventListener( 'resize', onWindowResize );
+
 //Renderer
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -26,7 +37,7 @@ directionalLight2.position.set(-10, 1, -8);
 scene.add(directionalLight2);
 
 //OrbitControls
-const cameraControl = new OrbitControls(camera, renderer.domElement);
+//const cameraControl = new OrbitControls(camera, renderer.domElement);
 
 //Cubo
 // const cube1Geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -61,6 +72,7 @@ pusher1.load(
   "./Recursos/Modelos/pusher1.fbx",
   function (object) {
     pusher1object = object;
+    pusher1object.position.set(86,0,0);
     scene.add(pusher1object);
   },
   function (xhr) {
@@ -71,6 +83,7 @@ pusher1.load(
   }
 );
 
+
 //Pusher2
 const pusher2 = new FBXLoader();
 let pusher2object;
@@ -78,6 +91,7 @@ pusher2.load(
   "./Recursos/Modelos/pusher2.fbx",
   function (object) {
     pusher2object = object;
+    pusher2object.position.set(-86,0,0);
     scene.add(pusher2object);
   },
   function (xhr) {
@@ -107,6 +121,13 @@ puck.load(
 
 document.onkeydown = function (e) {
   //console.log(e);
+
+  if (e.code =="KeyP"){
+    let cube1pos = new THREE.Vector3();
+          pusher1object.getWorldPosition(cube1pos);
+          console.log(cube1pos);
+  }
+
   if (e.code == "KeyC") {
     console.log(camera.position);
   }

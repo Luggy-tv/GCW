@@ -47,7 +47,6 @@ bbcube2.setFromObject(cube2);
 
 //Movimiento
 document.onkeydown = function (e) {
-
   if (e.code == "ArrowRight") {
     cube1.position.x += 0.5;
   }
@@ -94,8 +93,9 @@ function animateBall() {
 
 function update() {
   animateBall();
-  setTimeout(update,100);
-}update();
+  setTimeout(update, 100);
+}
+update();
 
 function animate() {
   requestAnimationFrame(animate);

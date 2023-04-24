@@ -1,89 +1,86 @@
-:root{
-    --rojo: #d92e2e;
-    --amarillo:#e0be36 ;
-    --azul: #2930e6 ;
-    --celeste:#4debeb ;
+:root {
+  --rojo: #d92e2e;
+  --amarillo: #e0be36;
+  --azul: #2930e6;
+  --celeste: #4debeb;
 }
 
-body{
-    font-family: 'Righteous', cursive;
-    margin:0;
-    overflow: hidden; 
+body {
+  font-family: "Righteous", cursive;
+  margin: 0;
+  overflow: hidden;
 }
 
-
-#contador{
-    position: absolute;
-    top: 0px;
+#contador {
+  position: absolute;
+  top: 0px;
 }
 
-.videoFondo{
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
+.videoFondo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
-.fotoFondo{
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
+.fotoFondo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .content {
-    position: fixed;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: #f1f1f1;
-    width: 100%;
-    padding: 20px;
-    padding-top: 30px;
-    border-radius: 10px;
-    
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+  padding-top: 30px;
+  border-radius: 10px;
 }
 
-.contador{
-    position: absolute;
-    top: 0px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #f1f1f1;
-    width: 100%;
-    padding-top: 10px;
-    border-radius: 10px;
-    text-align: center;
+.contador {
+  position: absolute;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding-top: 10px;
+  border-radius: 10px;
+  text-align: center;
 }
 
-a{
-    color: white;
-
+a {
+  color: white;
 }
 a:link {
-    text-decoration: none;
+  text-decoration: none;
 }
 a:visited {
-    text-decoration: none;
+  text-decoration: none;
 }
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 a:active {
-    text-decoration: none;
+  text-decoration: none;
 }
-a:hover{
-    color: var(--rojo);
-}
-
-.selected{
-    transition: border-bottom 0.3s ease-out 100ms
-}
-.selected:hover{
-    border-bottom: solid var(--azul);
+a:hover {
+  color: var(--rojo);
 }
 
-button{
-    height: 40px;
-    width: 100px;
+.selected {
+  transition: border-bottom 0.3s ease-out 100ms;
+}
+.selected:hover {
+  border-bottom: solid var(--azul);
+}
+
+button {
+  height: 40px;
+  width: 100px;
 }

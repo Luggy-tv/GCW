@@ -52,6 +52,17 @@ buttonLogout.addEventListener("click", () => {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
+      if (currentUser) {
+        const object = scene.getObjectByName(currentUser.uid);
+
+        scene.remove(object);
+        object.geometry.dispose();
+        object.material.dispose();
+
+        deleteObject(currentUser.uid);
+
+        currentUser = null;
+      }
       console.log("Sign-out successful");
     })
     .catch((error) => {
@@ -70,9 +81,14 @@ async function login() {
       // The signed-in user info.
       const user = result.user;
       currentUser = result.user;
-      console.log(user.uid);
+      // console.log(user.uid);
       //console.log("Sign-in successful welcome " + currentUser.displayName);
-      writeUserData(user.uid, { L: 15 , W: 15 , X: -85 , Z: 0 , color: "aqua" });
+      writeNewObject(
+        user.uid,
+        { x: 85, z: 0 },
+        { l: 15, w: 15 },
+        { color: "aqua" }
+      );
       // IdP data available using getAdditionalUserInfo(result)
       // ...
     })
@@ -95,25 +111,46 @@ onValue(starCountRef, (snapshot) => {
   // console.log(data);
 
   Object.entries(data).forEach(([key, value]) => {
-    
     const jugador = scene.getObjectByName(key);
 
-    //console.log(`${key} ${value.X}`); 
+    //console.log(`${key} ${value.x}`);
 
     if (!jugador) {
-      addObject(value.X,value.Z,value.W,value.L,value.color,key)
+      addObject(value.x, value.z, value.w, value.l, value.color, key);
     }
-     scene.getObjectByName(key).position.x = value.X;
-     scene.getObjectByName(key).position.z = value.Z;
-
+    scene.getObjectByName(key).position.x = value.x;
+    scene.getObjectByName(key).position.z = value.z;
   });
 });
 
 function writeUserData(userId, position) {
   set(ref(db, "Jugadores/" + userId), {
-    X: position.x,
-    Z: position.z,
+    x: position.x,
+    z: position.z,
   });
+}
+
+function writeNewObject(userId, position, scale, Mcolor) {
+  set(ref(db, "Jugadores/" + userId), {
+    color: Mcolor.color,
+    x: position.x,
+    z: position.z,
+    w: scale.w,
+    l: scale.l,
+  });
+}
+
+function deleteObject(userID) {
+  const objectref = ref(db, "Jugadores/" + userID);
+  console.log(objectref);
+  objectref
+    .remove()
+    .then(() => {
+      console.log("Object removed from Firebase!");
+    })
+    .catch((error) => {
+      console.error("Error removing object from Firebase:", error);
+    });
 }
 
 //Scene
@@ -160,49 +197,51 @@ let cube6RWall = addCube(0, 59, 200, 9, "gray");
 let cube7LWall = addCube(0, -59, 200, 9, "gray");
 
 //Movimiento
+
+const pusherRojo = scene.getObjectByName("PusherRojo");
+
 document.onkeydown = function (e) {
-
-
-if(currentUser){
-  const jugadorActual = scene.getObjectByName(currentUser.uid);
+  if (currentUser) {
+    const jugadorActual = scene.getObjectByName(currentUser.uid);
     if (e.code == "ArrowRight") {
-    jugadorActual.position.x += 4;
+      jugadorActual.position.x += 4;
+    }
+    if (e.code == "ArrowLeft") {
+      jugadorActual.position.x -= 4;
+    }
+    if (e.code == "ArrowUp") {
+      jugadorActual.position.z -= 4;
+    }
+    if (e.code == "ArrowDown") {
+      jugadorActual.position.z += 4;
+    }
+    writeUserData(currentUser.uid, {
+      x: jugadorActual.position.x,
+      z: jugadorActual.position.z,
+    });
   }
-  if (e.code == "ArrowLeft") {
-    jugadorActual.position.x -= 4;
-  }
-  if (e.code == "ArrowUp") {
-    jugadorActual.position.z -= 4;
-  }
-  if (e.code == "ArrowDown") {
-    jugadorActual.position.z += 4;
-  }
-  writeUserData(currentUser.uid, {
-    X: jugadorActual.position.x,
-    Z: jugadorActual.position.z,
-  });
-}  
 
-
+  // console.log(pusherRojo);
+  if (pusherRojo) {
     if (e.code == "KeyW") {
-    // PusherRojo.position.z -= 4;
-  }
-  if (e.code == "KeyS") {
-    // PusherRojo.position.z += 4;
-  }
-  if (e.code == "KeyA") {
-    // PusherRojo.position.x -= 4;
-  }
-  if (e.code == "KeyD") {
-    // PusherRojo.position.x += 4;
-  }
+      // PusherRojo.position.z -= 4;
+    }
+    if (e.code == "KeyS") {
+      // PusherRojo.position.z += 4;
+    }
+    if (e.code == "KeyA") {
+      // PusherRojo.position.x -= 4;
+    }
+    if (e.code == "KeyD") {
+      // PusherRojo.position.x += 4;
+    }
 
-//   writeUserData(PusherRojo.name, {
-//     X: PusherRojo.position.x,
-//     Z: PusherRojo.position.z,
-//   });
-// }
-
+    //   writeUserData(PusherRojo.name, {
+    //     x: PusherRojo.position.x,
+    //     z: PusherRojo.position.z,
+    //   });
+    // }
+  }
 };
 
 function addCube(x, z, w, h, colorM) {
@@ -216,18 +255,18 @@ function addCube(x, z, w, h, colorM) {
   return cube;
 }
 
-function addObject(X,Z,W,L,color,key){
+function addObject(x, z, w, l, colorM, key) {
   const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshPhongMaterial({ color: color });
+  const material = new THREE.MeshPhongMaterial({ color: colorM });
   const mesh = new THREE.Mesh(geometry, material);
   mesh.castShadow = true;
-  mesh.position.set(X, 0, Z);
-  mesh.scale.set(W, 1, L);
+  mesh.position.set(x, 0, z);
+  mesh.scale.set(w, 1, l);
   mesh.name = key;
   scene.add(mesh);
 }
 
-function checkCollisionWith() {}
+function checkCollisionwith() {}
 
 function update() {
   //animateBall();

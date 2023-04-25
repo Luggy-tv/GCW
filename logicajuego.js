@@ -70,50 +70,49 @@ async function login() {
       // The signed-in user info.
       const user = result.user;
       currentUser = result.user;
-      console.log(currentUser);
-      writeUserData(user.uid, { x: 0, z: 0 });
+      console.log(user.uid);
+      //console.log("Sign-in successful welcome " + currentUser.displayName);
+      writeUserData(user.uid, { L: 15 , W: 15 , X: -85 , Z: 0 , color: "aqua" });
       // IdP data available using getAdditionalUserInfo(result)
       // ...
     })
     .catch((error) => {
       // Handle Errors here.
+      console.log("Hubo Un error");
       const errorCode = error.code;
       const errorMessage = error.message;
       // The email of the user's account used.
-      const email = error.customData.email;
+      //const email = error.customData.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
     });
 }
 
-const starCountRef = ref(db, "jugadores/");
-
+const starCountRef = ref(db, "Jugadores/");
 onValue(starCountRef, (snapshot) => {
   const data = snapshot.val();
-  console.log(data);
+  // console.log(data);
 
   Object.entries(data).forEach(([key, value]) => {
+    
     const jugador = scene.getObjectByName(key);
+
+    //console.log(`${key} ${value.X}`); 
+
     if (!jugador) {
-      const geometry = new THREE.BoxGeometry(1, 1, 1);
-      const material = new THREE.MeshPhongMaterial();
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.castShadow = true;
-      mesh.position.set(value.x, 0, value.z);
-      mesh.name = key;
-      mesh.material.color = new THREE.Color(Math.random() * 0xffffff);
-      scene.add(mesh);
+      addObject(value.X,value.Z,value.W,value.L,value.color,key)
     }
-    scene.getObjectByName(key).position.x = value.x;
-    scene.getObjectByName(key).position.z = value.z;
+     scene.getObjectByName(key).position.x = value.X;
+     scene.getObjectByName(key).position.z = value.Z;
+
   });
 });
 
 function writeUserData(userId, position) {
-  set(ref(db, "jugadores/" + userId), {
-    x: position.x,
-    z: position.z,
+  set(ref(db, "Jugadores/" + userId), {
+    X: position.x,
+    Z: position.z,
   });
 }
 
@@ -154,135 +153,56 @@ scene.add(directionalLight);
 const HemisphereLight = new THREE.HemisphereLight(0xffffff, 1);
 scene.add(HemisphereLight);
 
-//Pusher1
-let cube1 = addCube(86, 0, 16, 16, "aqua");
-//Pusher2
-let cube2 = addCube(-86, 0, 16, 16, "coral");
-//Puck
-let cube3 = addCube(0, 0, 15, 15, "red");
-
 // //Cubos 4-5-6-7 Paredes
 let cube4TopWall = addCube(100, 0, 9, 127, "gray");
 let cube5BotWall = addCube(-100, 0, 9, 127, "gray");
 let cube6RWall = addCube(0, 59, 200, 9, "gray");
 let cube7LWall = addCube(0, -59, 200, 9, "gray");
 
-//BoundingBoxCubo1
-const bbcube1 = new THREE.Box3();
-bbcube1.setFromObject(cube1);
-
-//BoundingBoxCubo2
-const bbcube2 = new THREE.Box3();
-bbcube2.setFromObject(cube2);
-
-// //Pusher1
-// const pusher1 = new FBXLoader();
-// let pusher1object;
-// pusher1.load(
-//   "./Recursos/Modelos/pusher1.fbx",
-//   function (object) {
-//     pusher1object = object;
-//     pusher1object.position.set(86, 0, 0);
-//     // pusher1object.castShadow=true;
-//     scene.add(pusher1object);
-//   },
-//   function (xhr) {
-//     console.log((xhr.loaded / xhr.total) * 100 + "% cargado");
-//   },
-//   function (error) {
-//     console.error("Error al cargar el archivo FBX", error);
-//   }
-// );
-
-// //Pusher2
-// const pusher2 = new FBXLoader();
-// let pusher2object;
-// pusher2.load(
-//   "./Recursos/Modelos/pusher2.fbx",
-//   function (object) {
-//     pusher2object = object;
-//     pusher2object.position.set(-86, 0, 0);
-//     // pusher2object.castShadow=true;
-//     scene.add(pusher2object);
-//   },
-//   function (xhr) {
-//     console.log((xhr.loaded / xhr.total) * 100 + "% cargado");
-//   },
-//   function (error) {
-//     console.error("Error al cargar el archivo FBX", error);
-//   }
-// );
-
-// //Puck
-// const puck = new FBXLoader();
-// let puckObject;
-// puck.load(
-//   "./Recursos/Modelos/puck.fbx",
-//   function (object) {
-//     puckObject = object;
-//     // puckObject.castShadow=true;
-//     scene.add(puckObject);
-//   },
-//   function (xhr) {
-//     console.log((xhr.loaded / xhr.total) * 100 + "% cargado");
-//   },
-//   function (error) {
-//     console.error("Error al cargar el archivo FBX", error);
-//   }
-// );
-
-// //Escenario
-// const escenario = new FBXLoader();
-// let escenarioObject;
-// escenario.load(
-//   "./Recursos/Modelos/escenario.fbx",
-//   function (object) {
-//     // El objeto FBX se ha cargado exitosamente
-//     // Puedes agregarlo a tu escena Three.js aquí
-//     escenarioObject = object;
-//     escenarioObject.receiveShadow =true;
-//     scene.add(escenarioObject);
-//   },
-//   function (xhr) {
-//     // Función de progreso opcional
-//     console.log((xhr.loaded / xhr.total) * 100 + "% cargado");
-//   },
-//   function (error) {
-//     // Función de manejo de errores opcional
-//     console.error("Error al cargar el archivo FBX", error);
-//   }
-// );
-
 //Movimiento
 document.onkeydown = function (e) {
-  if (e.code == "KeyC") {
-    console.log(camera.position);
-  }
-  if (e.code == "ArrowRight") {
-    cube1.position.x += 4;
+
+
+if(currentUser){
+  const jugadorActual = scene.getObjectByName(currentUser.uid);
+    if (e.code == "ArrowRight") {
+    jugadorActual.position.x += 4;
   }
   if (e.code == "ArrowLeft") {
-    cube1.position.x -= 4;
+    jugadorActual.position.x -= 4;
   }
   if (e.code == "ArrowUp") {
-    cube1.position.z -= 4;
+    jugadorActual.position.z -= 4;
   }
   if (e.code == "ArrowDown") {
-    cube1.position.z += 4;
+    jugadorActual.position.z += 4;
   }
+  writeUserData(currentUser.uid, {
+    X: jugadorActual.position.x,
+    Z: jugadorActual.position.z,
+  });
+}  
 
-  if (e.code == "KeyW") {
-    cube2.position.z -= 4;
+
+    if (e.code == "KeyW") {
+    // PusherRojo.position.z -= 4;
   }
   if (e.code == "KeyS") {
-    cube2.position.z += 4;
+    // PusherRojo.position.z += 4;
   }
   if (e.code == "KeyA") {
-    cube2.position.x -= 4;
+    // PusherRojo.position.x -= 4;
   }
   if (e.code == "KeyD") {
-    cube2.position.x += 4;
+    // PusherRojo.position.x += 4;
   }
+
+//   writeUserData(PusherRojo.name, {
+//     X: PusherRojo.position.x,
+//     Z: PusherRojo.position.z,
+//   });
+// }
+
 };
 
 function addCube(x, z, w, h, colorM) {
@@ -296,8 +216,15 @@ function addCube(x, z, w, h, colorM) {
   return cube;
 }
 
-function animateBall() {
-  cube3.position.x -= 2;
+function addObject(X,Z,W,L,color,key){
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const material = new THREE.MeshPhongMaterial({ color: color });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.castShadow = true;
+  mesh.position.set(X, 0, Z);
+  mesh.scale.set(W, 1, L);
+  mesh.name = key;
+  scene.add(mesh);
 }
 
 function checkCollisionWith() {}

@@ -1,0 +1,9 @@
+Buenas noches profesor nuestro proyecto se encuentra en un repositorio de github, los archivos del segundo avance se encuentran en logicajuego (Multijugador) y juego (modelos)
+
+Link:
+https://github.com/Luggy-tv/GCW
+
+Integrantes:
+Luis Alfonso Martinez Martinez 1810061
+Velvet Daniela Montejo Lezama 1941489
+Carlos Aaron Valdez Hernandez 1805776
